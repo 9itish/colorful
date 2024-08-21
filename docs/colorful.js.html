@@ -1,8 +1,53 @@
-class Colorful {
-  #hexa;
-  #rgba;
-  #hsla;
-  #hsva;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>colorful.js — Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<link type="text/css" rel="stylesheet" href="styles/custom.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Colorful.html">Colorful</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#analogous">analogous</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#blue">blue</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#complementary">complementary</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#green">green</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hex">hex</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hsl">hsl</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hslString">hslString</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hsv">hsv</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hsvString">hsvString</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#hue">hue</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#inverse">inverse</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#lightness">lightness</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#luminance">luminance</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#monochromatic">monochromatic</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#rectangle">rectangle</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#red">red</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#rgb">rgb</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#rgbString">rgbString</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#saturation">saturation</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#splitComplementary">splitComplementary</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#square">square</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#triad">triad</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#.aHex">aHex</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#.aPastel">aPastel</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#.bluish">bluish</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#.greenish">greenish</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Colorful.html#.reddish">reddish</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#adjustBrightness">adjustBrightness</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#adjustSaturation">adjustSaturation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getAnalogousColors">getAnalogousColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getComplementaryColor">getComplementaryColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getContrast">getContrast</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getContrastingColor">getContrastingColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getInverseColor">getInverseColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getMonochromaticColors">getMonochromaticColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getRectangleColors">getRectangleColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getSplitComplementaryColors">getSplitComplementaryColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getSquareColors">getSquareColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#getTriadColors">getTriadColors</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#isDark">isDark</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#isLight">isLight</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#rotateHue">rotateHue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getBlackAccessibleColor">getBlackAccessibleColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getLuminance">getLuminance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getRandomHexColor">getRandomHexColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getRandomPastelColor">getRandomPastelColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getRandomPreferredColor">getRandomPreferredColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.getWhiteAccessibleColor">getWhiteAccessibleColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.hexToRgb">hexToRgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.hslToHsv">hslToHsv</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.hslToRgb">hslToRgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.hsvToRgb">hsvToRgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.rgbStringToHex">rgbStringToHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.rgbToHex">rgbToHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.rgbToHsl">rgbToHsl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Colorful.html#.sanitizeHex">sanitizeHex</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#inRange">inRange</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toString">toString</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">colorful.js — Documentation</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Colorful {
+  #hex;
+  #rgb;
+  #hsl;
+  #hsv;
 
   /**
    * @param {string} hex - A hex value to instantiate the class.
@@ -36,22 +81,18 @@ class Colorful {
 
     let sanitizedHex = hex.replace("#", "");
 
-    if (sanitizedHex.length !== 3 && sanitizedHex.length !== 4 && sanitizedHex.length !== 6 && sanitizedHex.length !== 8) {
+    if (sanitizedHex.length !== 3 &amp;&amp; sanitizedHex.length !== 6) {
       throw new Error(
-        `${sanitizedHex} doesn't have the right number of character!`
+        `The ${sanitizedHex} character length is neither 3 nor 6!`
       );
     }
 
     // If the input is a 3 character HEX color, duplicate each character to create a 6 character HEX color.
-    if (sanitizedHex.length === 3 || sanitizedHex.length === 4) {
+    if (sanitizedHex.length === 3) {
       sanitizedHex = sanitizedHex
         .split("")
         .map((h) => h + h)
         .join("");
-    }
-
-    if(sanitizedHex.length == 6) {
-      sanitizedHex += 'FF';
     }
 
     // Prefix `#` that was removed in the beginning for sanitization.
@@ -63,31 +104,20 @@ class Colorful {
    * @param {string} hex - The hex notation of the color you want to convert to rgb() format.
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
-  static hexToRgb(hexa) {
-    // At this point, hex will always have eight characters due to sanitization.
-    hexa = Colorful.sanitizeHex(hexa).replace("#", "");
+  static hexToRgb(hex) {
+    hex = Colorful.sanitizeHex(hex).replace("#", "");
 
     // HEX colors are in Base-16 so I use parseInt() to convert those values to a Base-10 integer.
-    // let colorInt = parseInt(hex, 16);
+    let colorInt = parseInt(hex, 16);
 
     // The Red, Green, and Blue component use 2 HEX digits each to specify their value. This translates to 8 bits each in binary.
 
     // Do a right shift by 16 bits and then the bitwise AND operation with 255 to isolate the red component.
-    // let r = (colorInt >> 16) & 255;
-    // let g = (colorInt >> 8) & 255;
-    // let b = colorInt & 255;
+    let r = (colorInt >> 16) &amp; 255;
+    let g = (colorInt >> 8) &amp; 255;
+    let b = colorInt &amp; 255;
 
-    let r = parseInt(hex.slice(0, 2), 16);
-    let g = parseInt(hex.slice(2, 4), 16);
-    let b = parseInt(hex.slice(4, 6), 16);
-    let a = parseInt(hex.slice(6, 8), 16) / 255;
-
-    // No need to output alpha if it is 1
-    if(a == 1) {
-      return [r, g, b];
-    } else {
-      return [r, g, b, a];
-    }
+    return [r, g, b];
   }
 
   /**
@@ -95,11 +125,11 @@ class Colorful {
    * @param {array} rgb -  The first, second, and third element in the array are the red, green, and blue components of the color.
    * @returns {array} - The first, second, and third element are the hue, saturation, and lightness of the color.
    */
-  static rgbToHsl(rgba) {
+  static rgbToHsl(rgb) {
 
-    validateRgb(rgba);
+    validateRgb(rgb);
 
-    let [r, g, b, a] = rgba;
+    let [r, g, b] = rgb;
 
     r /= 255;
     g /= 255;
@@ -119,7 +149,7 @@ class Colorful {
       s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min);
       switch (max) {
         case r:
-          h = (g - b) / diff + (g < b ? 6 : 0);
+          h = (g - b) / diff + (g &lt; b ? 6 : 0);
           break;
         case g:
           h = (b - r) / diff + 2;
@@ -132,11 +162,7 @@ class Colorful {
       h /= 6;
     }
 
-    if(a !== 1 && a !== undefined) {
-      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100), a];
-    } else {
-      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
-    }
+    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
   }
 
   /**
@@ -144,11 +170,11 @@ class Colorful {
    * @param {array} hsl - The first, second, and third element in the array are the hue, saturation, and lightness of the color.
    * @returns {array} - The first, second, and third element are the hue, saturation, and value of the color.
    */
-  static hslToHsv(hsla) {
+  static hslToHsv(hsl) {
 
-    validateHslHsv(hsla);
+    validateHslHsv(hsl);
 
-    let [h, s, l, a] = hsla;
+    let [h, s, l] = hsl;
 
     s /= 100;
     l /= 100;
@@ -156,11 +182,7 @@ class Colorful {
     let v = l + s * Math.min(l, 1 - l);
     let sv = v === 0 ? 0 : 2 * (1 - l / v);
 
-    if(a !== 1 && a !== undefined) {
-      return [h, Math.round(sv * 100), Math.round(v * 100), a];
-    } else {
-      return [h, Math.round(sv * 100), Math.round(v * 100)];
-    }
+    return [h, Math.round(sv * 100), Math.round(v * 100)];
   }
 
   /**
@@ -168,11 +190,11 @@ class Colorful {
    * @param {array} hsl - The first, second, and third element in the array are the hue, saturation, and lightness of the color.
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
-  static hslToRgb(hsla) {
+  static hslToRgb(hsl) {
     
-    validateHslHsv(hsla);
+    validateHslHsv(hsl);
 
-    let [h, s, l, a] = hsla;
+    let [h, s, l] = hsl;
 
     // Normalize the values so they all fall in the range 0-1.
     h /= 360;
@@ -188,14 +210,14 @@ class Colorful {
       // This function converts the hue value to RGB using predefined calculations.
       // The value for `t` is based on Hue. The value for `q` is based on the lightness and saturation. The value for `p` is based on `q`.
       const hue2rgb = (p, q, t) => {
-        if (t < 0) t += 1;
+        if (t &lt; 0) t += 1;
         if (t > 1) t -= 1;
-        if (t < 1 / 6) return p + (q - p) * 6 * t;
-        if (t < 1 / 2) return q;
-        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        if (t &lt; 1 / 6) return p + (q - p) * 6 * t;
+        if (t &lt; 1 / 2) return q;
+        if (t &lt; 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
         return p;
       };
-      let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      let q = l &lt; 0.5 ? l * (1 + s) : l + s - l * s;
       let p = 2 * l - q;
       r = hue2rgb(p, q, h + 1 / 3);
       g = hue2rgb(p, q, h);
@@ -203,11 +225,7 @@ class Colorful {
     }
 
     // Multiplying by 255 scales the values from 0-1 to 0-255.
-    if(a !== 1 && a !== undefined) {
-      return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), a];
-    } else {
-      return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-    }
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
   }
 
   /**
@@ -215,11 +233,11 @@ class Colorful {
    * @param {array} hsv - The first, second, and third element are the hue, saturation, and value of the color.
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
-  static hsvToRgb(hsva) {
+  static hsvToRgb(hsv) {
 
-    validateHslHsv(hsva);
+    validateHslHsv(hsv);
 
-    let [h, s, v, a] = hsva;
+    let [h, s, v] = hsv;
 
     s /= 100;
     v /= 100;
@@ -229,27 +247,23 @@ class Colorful {
     let m = v - c;
 
     let rgbPrime;
-    if (h >= 0 && h < 60) {
+    if (h >= 0 &amp;&amp; h &lt; 60) {
       rgbPrime = [c, x, 0];
-    } else if (h >= 60 && h < 120) {
+    } else if (h >= 60 &amp;&amp; h &lt; 120) {
       rgbPrime = [x, c, 0];
-    } else if (h >= 120 && h < 180) {
+    } else if (h >= 120 &amp;&amp; h &lt; 180) {
       rgbPrime = [0, c, x];
-    } else if (h >= 180 && h < 240) {
+    } else if (h >= 180 &amp;&amp; h &lt; 240) {
       rgbPrime = [0, x, c];
-    } else if (h >= 240 && h < 300) {
+    } else if (h >= 240 &amp;&amp; h &lt; 300) {
       rgbPrime = [x, 0, c];
-    } else if (h >= 300 && h < 360) {
+    } else if (h >= 300 &amp;&amp; h &lt; 360) {
       rgbPrime = [c, 0, x];
     }
 
     let [r, g, b] = rgbPrime.map((value) => Math.round((value + m) * 255));
 
-    if(a !== 1 && a !== undefined) {
-      return [r, g, b, a];
-    } else {
-      return [r, g, b];
-    }
+    return [r, g, b];
   }
 
   /**
@@ -257,17 +271,11 @@ class Colorful {
    * @param {array} rgb - The first, second, and third element in the array are the red, green, and blue components of the color.
    * @returns {string} - The long form HEX code for the color.
    */
-  static rgbToHex(rgba) {
+  static rgbToHex(rgb) {
 
-    validateRgb(rgba);
+    validateRgb(rgb);
 
-    let [r, g, b, a] = rgba;
-
-    if(a != 1 && a != undefined) {
-      a = Math.round(a * 255).toString(16).padStart(2, "0");
-    } else {
-      a = '';
-    }
+    let [r, g, b] = rgb;
 
     return (
       "#" +
@@ -275,7 +283,7 @@ class Colorful {
         .map((x) => {
           return x.toString(16).padStart(2, "0");
         })
-        .join("") + a
+        .join("")
     );
   }
 
@@ -317,7 +325,7 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // We are adjusting amount by percent, therefore we multiply the given percent value with 1/100 to calculate the magnitude by which to adjust the lightness.
     let amount = (percent * l) / 100;
@@ -346,7 +354,7 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     let amount = (percent * s) / 100;
     s += amount;
@@ -375,13 +383,13 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // h is circular so we can keep it between 0 and 359 without actually affecting the output color.
     h = (h + degrees) % 360;
 
     // If the degrees are too negative, `h` will be negative after modulo. We can add 360 once to make `h` positive without affecting the color.
-    if (h < 0) {
+    if (h &lt; 0) {
       h += 360;
     }
 
@@ -409,7 +417,7 @@ class Colorful {
     // Normalize the RGB values to be within 0-1 and then reverse the gamma correction that sRGB does to change color values non-linearly based on human perception of color.
     let [r_n, g_n, b_n] = originalRgb.map((value) => {
       value /= 255;
-      return value <= 0.03928
+      return value &lt;= 0.03928
         ? value / 12.92
         : Math.pow((value + 0.055) / 1.055, 2.4);
     });
@@ -447,7 +455,7 @@ class Colorful {
 
     let color = Colorful.getRandomHexColor();
 
-    while(this.getLuminance(color) <= 0.4) {
+    while(this.getLuminance(color) &lt;= 0.4) {
         color = Colorful.getRandomHexColor();
     }
 
@@ -458,14 +466,14 @@ class Colorful {
    * This method returns `true` when a color's luminance is more than or equal to 0.5.
    */
   isLight() {
-    return Colorful.getLuminance(this.#hexa) >= 0.5;
+    return Colorful.getLuminance(this.#hex) >= 0.5;
   }
 
   /**
    * This method returns `false` when a color's luminance is less than 0.5.
    */
   isDark() {
-    return Colorful.getLuminance(this.#hexa) < 0.5;
+    return Colorful.getLuminance(this.#hex) &lt; 0.5;
   }
 
   /**
@@ -479,7 +487,7 @@ class Colorful {
    */
   getContrast(hex) {
 
-    let lumOne = Colorful.getLuminance(this.#hexa);
+    let lumOne = Colorful.getLuminance(this.#hex);
 
     // getLuminance() sanitizes HEX so no need to sanitize here.
     let lumTwo = Colorful.getLuminance(hex);
@@ -504,7 +512,7 @@ class Colorful {
     let contrastingColor = Colorful.getRandomHexColor();
 
     // Keep generating random colors until their contrast with the base color is at least equal to the given amount.
-    while (this.getContrast(contrastingColor) < amount) {
+    while (this.getContrast(contrastingColor) &lt; amount) {
       contrastingColor = Colorful.getRandomHexColor();
     }
 
@@ -520,7 +528,7 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getComplementaryColor());
    */
   getComplementaryColor() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // We get complementary color by rotating the hue 180 deg. Saturation and luminance stay the same.
     h = (h + 180) % 360;
@@ -539,7 +547,7 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getInverseColor());
    */
   getInverseColor() {
-    let [r, g, b] = this.#rgba;
+    let [r, g, b] = this.#rgb;
 
     return Colorful.rgbToHex([255 - r, 255 - g, 255 - b]);
   }
@@ -553,7 +561,7 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getInverseColor());
    */
   getMonochromaticColors() {
-    let [h, s, v] = this.#hsva;
+    let [h, s, v] = this.#hsv;
 
     // Use these 6 brightness values to generate monochromatic colors.
     let initVals = [20, 36, 48, 60, 75, 90];
@@ -562,9 +570,9 @@ class Colorful {
     let closestIdx = 0;
     let closestDiff = Math.abs(initVals[0] - v);
 
-    for (let i = 1; i < initVals.length; i++) {
+    for (let i = 1; i &lt; initVals.length; i++) {
       let diff = Math.abs(initVals[i] - v);
-      if (diff < closestDiff) {
+      if (diff &lt; closestDiff) {
         closestDiff = diff;
         closestIdx = i;
       }
@@ -573,7 +581,7 @@ class Colorful {
     // Create a new array that doesn't have the closest brightness value.
     let finVals = [];
 
-    for (let i = 0; i < initVals.length; i++) {
+    for (let i = 0; i &lt; initVals.length; i++) {
       if (i != closestIdx) {
         finVals.push(initVals[i]);
       }
@@ -602,7 +610,7 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the split complementary colors.
    */
   getSplitComplementaryColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // Generate two hue values that are +/- 30deg from the complementary hue value (i.e, 180deg)
     let h1 = (h + 150) % 360;
@@ -624,7 +632,7 @@ class Colorful {
    * console.log(myColor.getAnalogousColors());
    */
   getAnalogousColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // Generate two hue values that are +/- 30deg from the base color hue.
     // A -30 value is equal to -30 + 360 or 330 because hues are circular.
@@ -648,7 +656,7 @@ class Colorful {
    * console.log(myColor.getTriadColors());
    */
   getTriadColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // Generate two hue values that are +/- 120deg from the base color hue.
     // Doing -120 is same as doing -120 + 360 or 240. Already explained above.
@@ -671,7 +679,7 @@ class Colorful {
    * console.log(myColor.getSquareColors());
    */
   getSquareColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // Generate three hue values that are 90deg apart from each other. The base color has a hue rotation of 0 which is basically 360. So, this makes all colors 90deg apart.
     let h1 = (h + 90) % 360;
@@ -699,7 +707,7 @@ class Colorful {
    * console.log(myColor.getRectangleColors());
    */
   getRectangleColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l] = this.#hsl;
 
     // For a rectangle the hue gap is 60deg/120deg alternatively.
     let h1 = (h + 60) % 360;
@@ -818,7 +826,7 @@ class Colorful {
       lightnessRange = [0, 100],
     } = pref;
 
-    if (typeof pref === "string" && presets[pref]) {
+    if (typeof pref === "string" &amp;&amp; presets[pref]) {
       if (presets[pref].hueRange) {
         hueRange = presets[pref].hueRange;
       }
@@ -851,23 +859,14 @@ class Colorful {
    * @type {string}
    */
   get hex() {
-    return this.#hexa;
+    return this.#hex;
   }
 
   set hex(hex) {
-    this.#hexa = Colorful.sanitizeHex(hex);
-
-    // if(isAlpha()) {
-    //   this.#alpha = this.#hexa.slice(-2);
-    //   this.#hexa = this.#hexa.slice(0, -2);
-    // } else {
-    //   this.#alpha = 'FF';
-    //   this.#hexa = this.#hexa;
-    // }
-
-    this.#rgba = Colorful.hexToRgb(this.#hexa);
-    this.#hsla = Colorful.rgbToHsl(this.#rgba);
-    this.#hsva = Colorful.hslToHsv(this.#hsla);
+    this.#hex = Colorful.sanitizeHex(hex);
+    this.#rgb = Colorful.hexToRgb(hex);
+    this.#hsl = Colorful.rgbToHsl(this.#rgb);
+    this.#hsv = Colorful.hslToHsv(this.#hsl);
   }
 
   /**
@@ -880,7 +879,7 @@ class Colorful {
    * console.log(myColor.rgb);
    */
   get rgb() {
-    return this.#rgba;
+    return this.#rgb;
   }
 
   /**
@@ -893,7 +892,7 @@ class Colorful {
    * console.log(myColor.rgbString);
    */
   get rgbString() {
-    return "rgb(" + this.#rgba.join(", ") + ")";
+    return "rgb(" + this.#rgb.join(", ") + ")";
   }
 
   /**
@@ -906,7 +905,7 @@ class Colorful {
    * console.log(myColor.hsl);
    */
   get hsl() {
-    return this.#hsla;
+    return this.#hsl;
   }
 
   /**
@@ -919,11 +918,11 @@ class Colorful {
    * console.log(myColor.hslString);
    */
   get hslString() {
-    let hsl = this.#hsla;
+    let hsl = this.#hsl;
     let hslString = `hsl(${hsl[0]}deg, ${hsl[1]}%, ${hsl[2]}%)`;
 
     return hslString;
-    // return 'hsl(' + this.#hsla.join(' ') + ')';
+    // return 'hsl(' + this.#hsl.join(' ') + ')';
   }
 
   /**
@@ -936,7 +935,7 @@ class Colorful {
    * console.log(myColor.hsv);
    */
   get hsv() {
-    return this.#hsva;
+    return this.#hsv;
   }
 
   /**
@@ -949,7 +948,7 @@ class Colorful {
    * console.log(myColor.hsvString);
    */
   get hsvString() {
-    let hsv = this.#hsva;
+    let hsv = this.#hsv;
     let hsvString = `hsv(${hsv[0]}deg, ${hsv[1]}%, ${hsv[2]}%)`;
 
     return hsvString;
@@ -965,7 +964,7 @@ class Colorful {
    * console.log(myColor.red);
    */
   get red() {
-    return this.#rgba[0];
+    return this.#rgb[0];
   }
 
   /**
@@ -978,7 +977,7 @@ class Colorful {
    * console.log(myColor.green);
    */
   get green() {
-    return this.#rgba[1];
+    return this.#rgb[1];
   }
 
   /**
@@ -991,7 +990,7 @@ class Colorful {
    * console.log(myColor.blue);
    */
   get blue() {
-    return this.#rgba[2];
+    return this.#rgb[2];
   }
 
   /**
@@ -1004,7 +1003,7 @@ class Colorful {
    * console.log(myColor.hue);
    */
   get hue() {
-    return this.#hsla[0];
+    return this.#hsl[0];
   }
 
   /**
@@ -1017,7 +1016,7 @@ class Colorful {
    * console.log(myColor.saturation);
    */
   get saturation() {
-    return this.#hsla[1];
+    return this.#hsl[1];
   }
 
   /**
@@ -1030,7 +1029,7 @@ class Colorful {
    * console.log(myColor.lightness);
    */
   get lightness() {
-    return this.#hsla[2];
+    return this.#hsl[2];
   }
 
   /**
@@ -1215,7 +1214,7 @@ class Colorful {
  * @returns {bool} Returns true if the number is in range.
  */
 function inRange(value, min, max) {
-  return value >= min && value <= max;
+  return value >= min &amp;&amp; value &lt;= max;
 }
 
 /**
@@ -1234,49 +1233,49 @@ function toString(type, array) {
   }
 }
 
-function validateRgb(rgba) {
-    if (rgba.length != 3 && rgba.length != 4) {
-        throw new Error(`Input array needs 3 or 4 elements!`);
+function validateRgb(rgb) {
+    if (rgb.length != 3) {
+        throw new Error(`Input array needs three elements!`);
     }
 
-    let idx = 0;
-
-    for (let c of rgba) {
-
-        if(idx < 3) {
-          if (!Number.isInteger(c)) {
-              throw new Error(`At least one RGB value is not a number!`);
-          }
-
-          if (!inRange(c, 0, 255)) {
-              throw new Error(`At least one RGB value is not in valid range!`);
-          }
-        } else {
-          if (!Number.isNaN(c)) {
-              throw new Error(`The alpha value is not a number!`);
-          }
-
-          if (!inRange(c, 0, 1)) {
-              throw new Error(`The alpha value is out of range!`);
-          }
+    for (let c of rgb) {
+        if (!Number.isInteger(c)) {
+            throw new Error(`At least one RGB value is not a number!`);
         }
 
-        idx += 1;
+        if (!inRange(c, 0, 255)) {
+            throw new Error(`At least one RGB value is not in valid range!`);
+        }
     }
 }
 
 function validateHslHsv(hslv) {
 
-    if (hslv.length != 3 && hslv.length != 4) {
-        throw new Error(`Input array needs 3 or 4 elements!`);
+    if (hslv.length != 3) {
+        throw new Error(`Input array needs three elements!`);
     }
 
     if (!inRange(hslv[1], 0, 100) || !inRange(hslv[2], 0, 100)) {
         throw new Error(`One of the values is out of range!`);
     }
-
-    if(hslv.length == 4 && !inRange(hslv[3], 0, 1)) {
-      throw new Error(`The opacity is out of range!`);
-    }
     
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.3</a> using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

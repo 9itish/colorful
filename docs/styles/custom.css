@@ -1,0 +1,146 @@
+.section-members h4, .section-method h4 {
+    color: #D81B60;
+    font-weight: bold;
+    font-size: 125%;
+}
+
+.subsection-title {
+    color: #388E3C;
+    font-weight: bold;
+}
+
+.prettyprint {
+    font-size: 22px;
+    border: none;
+    box-shadow: none;
+}
+
+.prettyprint code {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    filter: invert(1);
+    border-radius: 4px;
+}
+
+h5 {
+    font-size: 120%;
+}
+
+#main {
+    font-size: 120%;
+}
+
+.nav-item-type {
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+}
+
+nav li {
+    margin: 0.2rem 0;
+    font-size: 20px;
+}
+
+.params, .props {
+    font-size: 20px;
+}
+
+tt, code, kbd, samp {
+    font-size: 20px;
+}
+
+.nav-heading a {
+    font-size: 18px;
+}
+
+footer {
+    padding: 10px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.readme {
+    font-size: 22px;
+}
+
+li {
+    margin: 0.6rem 0;
+}
+
+p {
+    line-height: 1.6;
+}
+
+* code {
+    font-size: 100%;
+}
+
+h1.page-title {
+    font-size: 50px;
+    border-bottom: solid 2px black;
+    padding: 1em 0 0.75em;
+    font-family: "Poppins";
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 34px;
+}
+
+.type-signature {
+    color: #555;
+}
+
+.section-method {
+    margin-bottom: 30px;
+    padding-bottom: 0px;
+    border-bottom: 1px solid black;
+}
+  
+
+/* Read Me */
+
+.readme h1, .readme h2 {
+    line-height: 1.4;
+}
+
+.readme h3 {
+    font-size: 1.2em;
+}
+
+.section-members {
+    border-bottom: 1px solid black;
+}
+
+.pln {
+    color: purple;
+}
+
+.com {
+    color: black;
+}
+
+/* Source Code */
+
+.prettyprint.linenums code {
+    filter: none;
+    border-radius: 0;
+}
+
+.prettyprint.linenums li * {
+    min-height: 22px;
+}
+
+.prettyprint.linenums ol {
+    padding-left: 25px;
+}

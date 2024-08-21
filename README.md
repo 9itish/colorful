@@ -80,6 +80,8 @@ A similar concept applies when manipulating saturation.
 
 ### Adjust Brightness
 
+![Colorful Adjust Brightness](images/colorful-adjust-brightness.png)
+
 ```
 // Outputs: #e4d20b
 console.log(new Colorful('#ae9f08').adjustBrightness(30));
@@ -90,6 +92,8 @@ console.log(new Colorful('#AE9F08').adjustBrightness(-40));
 
 ### Adjust Saturation
 
+![Colorful Adjust Saturation](images/colorful-adjust-saturation.png)
+
 ```
 // Outputs: #1acb1d
 console.log(new Colorful('#34b137').adjustSaturation(40));
@@ -99,6 +103,8 @@ console.log(new Colorful('#34b137').adjustSaturation(-40));
 ```
 
 ### Rotate Hue
+
+![Colorful Rotate Hue](images/colorful-hue-rotation.png)
 
 ```
 // Outputs: #3eb80a
@@ -114,6 +120,8 @@ There are three different static methods in the `Colorful` class to generate ran
 
 ### Random HEX Color
 
+![Colorful Random HEX](images/colorful-random-hex.png)
+
 The `getRandomHexColor()` method will give the HEX value for a random color.
 
 ```
@@ -123,6 +131,8 @@ console.log(Colorful.getRandomHexColor());
 
 ### Random Pastel Color
 
+![Colorful Random Pastel](images/colorful-random-pastel.png)
+
 Use `getRandomPastelColor()` if you want to generate lighter colors. This method also gives back a HEX string.
 
 ```
@@ -131,6 +141,8 @@ console.log(Colorful.getRandomPastelColor());
 ```
 
 ### Random Preferred Color
+
+![Colorful Random Preferred Color](images/colorful-random-preffered.png)
 
 The most versatile method in `Colorful` to generate random colors is `getPreferredColor()`. It accepts a string or object as its parameter to generate a random color.
 
@@ -187,6 +199,8 @@ You can use `Colorful` to get some suggestions on background color for white or 
 
 ### Calculate Contrast Between Colors
 
+![Colorful Calculate Contrast](images/colorful-calculate-contrast.png)
+
 If you are planning to use tow colors together, it might be beneficial to know the contrast between them. Use the `getContrast()` method in `Colorful` to do so.
 
 ```
@@ -197,6 +211,8 @@ console.log(myColor.getContrast('#F90'));
 ```
 
 ### Get Color Suggestions above Contrast Threshold
+
+![Colorful Contrasting Colors](images/colorful-contrasting-colors.png)
 
 If you just want `Colorful` to suggest random colors that have a contrast with the color of the instantiated `Colorful` object above the specified threshold, use the `getContrastingColor()` method.
 
