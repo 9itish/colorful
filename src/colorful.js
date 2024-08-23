@@ -50,9 +50,9 @@ class Colorful {
         .join("");
     }
 
-    if(sanitizedHex.length == 6) {
-      sanitizedHex += 'FF';
-    }
+    // if(sanitizedHex.length == 6) {
+    //   sanitizedHex += 'FF';
+    // }
 
     // Prefix `#` that was removed in the beginning for sanitization.
     return `#${sanitizedHex}`;
@@ -67,6 +67,10 @@ class Colorful {
     // At this point, hex will always have eight characters due to sanitization.
     hexa = Colorful.sanitizeHex(hexa).replace("#", "");
 
+    if(hexa.length == 6) {
+      hexa += 'FF';
+    }
+
     // HEX colors are in Base-16 so I use parseInt() to convert those values to a Base-10 integer.
     // let colorInt = parseInt(hex, 16);
 
@@ -77,10 +81,10 @@ class Colorful {
     // let g = (colorInt >> 8) & 255;
     // let b = colorInt & 255;
 
-    let r = parseInt(hex.slice(0, 2), 16);
-    let g = parseInt(hex.slice(2, 4), 16);
-    let b = parseInt(hex.slice(4, 6), 16);
-    let a = parseInt(hex.slice(6, 8), 16) / 255;
+    let r = parseInt(hexa.slice(0, 2), 16);
+    let g = parseInt(hexa.slice(2, 4), 16);
+    let b = parseInt(hexa.slice(4, 6), 16);
+    let a = parseInt(hexa.slice(6, 8), 16) / 255;
 
     // No need to output alpha if it is 1
     if(a == 1) {
@@ -97,9 +101,9 @@ class Colorful {
    */
   static rgbToHsl(rgba) {
 
-    validateRgb(rgba);
+    let [r, g, b, a = 1] = rgba;
 
-    let [r, g, b, a] = rgba;
+    validateRgb(rgba);
 
     r /= 255;
     g /= 255;
@@ -132,7 +136,7 @@ class Colorful {
       h /= 6;
     }
 
-    if(a !== 1 && a !== undefined) {
+    if(a !== 1) {
       return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100), a];
     } else {
       return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
@@ -148,7 +152,7 @@ class Colorful {
 
     validateHslHsv(hsla);
 
-    let [h, s, l, a] = hsla;
+    let [h, s, l, a = 1] = hsla;
 
     s /= 100;
     l /= 100;
@@ -156,7 +160,7 @@ class Colorful {
     let v = l + s * Math.min(l, 1 - l);
     let sv = v === 0 ? 0 : 2 * (1 - l / v);
 
-    if(a !== 1 && a !== undefined) {
+    if(a !== 1) {
       return [h, Math.round(sv * 100), Math.round(v * 100), a];
     } else {
       return [h, Math.round(sv * 100), Math.round(v * 100)];
@@ -172,7 +176,7 @@ class Colorful {
     
     validateHslHsv(hsla);
 
-    let [h, s, l, a] = hsla;
+    let [h, s, l, a = 1] = hsla;
 
     // Normalize the values so they all fall in the range 0-1.
     h /= 360;
@@ -203,7 +207,7 @@ class Colorful {
     }
 
     // Multiplying by 255 scales the values from 0-1 to 0-255.
-    if(a !== 1 && a !== undefined) {
+    if(a !== 1) {
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), a];
     } else {
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
@@ -245,7 +249,7 @@ class Colorful {
 
     let [r, g, b] = rgbPrime.map((value) => Math.round((value + m) * 255));
 
-    if(a !== 1 && a !== undefined) {
+    if(a !== 1) {
       return [r, g, b, a];
     } else {
       return [r, g, b];
@@ -261,9 +265,9 @@ class Colorful {
 
     validateRgb(rgba);
 
-    let [r, g, b, a] = rgba;
+    let [r, g, b, a = 1] = rgba;
 
-    if(a != 1 && a != undefined) {
+    if(a != 1) {
       a = Math.round(a * 255).toString(16).padStart(2, "0");
     } else {
       a = '';
@@ -317,7 +321,8 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    // Set 'a' to 1 by default. We can always get rid of it in output.
+    let [h, s, l, a = 1] = this.#hsla;
 
     // We are adjusting amount by percent, therefore we multiply the given percent value with 1/100 to calculate the magnitude by which to adjust the lightness.
     let amount = (percent * l) / 100;
@@ -326,8 +331,7 @@ class Colorful {
     // The lightness shouldn't go below 0 (black) or above 100 (white).
     l = Math.max(0, Math.min(l, 100));
 
-    let newColor = Colorful.hslToRgb([h, s, l]);
-
+    let newColor = Colorful.hslToRgb([h, s, l, a]);
     return Colorful.rgbToHex(newColor);
   }
 
@@ -346,7 +350,7 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     let amount = (percent * s) / 100;
     s += amount;
@@ -355,8 +359,7 @@ class Colorful {
     // Pure Red is #F00 which gives it 100% saturation. Adding more saturation using this method won't change the the color from #F00 to something else.
     s = Math.max(0, Math.min(s, 100));
 
-    let newColor = Colorful.hslToRgb([h, s, l]);
-
+    let newColor = Colorful.hslToRgb([h, s, l, a]);
     return Colorful.rgbToHex(newColor);
   }
 
@@ -375,7 +378,7 @@ class Colorful {
       throw new Error(`Please pass a numerical value!`);
     }
 
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // h is circular so we can keep it between 0 and 359 without actually affecting the output color.
     h = (h + degrees) % 360;
@@ -385,7 +388,7 @@ class Colorful {
       h += 360;
     }
 
-    let newColor = Colorful.hslToRgb([h, s, l]);
+    let newColor = Colorful.hslToRgb([h, s, l, a]);
 
     return Colorful.rgbToHex(newColor);
   }
@@ -520,12 +523,12 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getComplementaryColor());
    */
   getComplementaryColor() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // We get complementary color by rotating the hue 180 deg. Saturation and luminance stay the same.
     h = (h + 180) % 360;
 
-    const complementaryRgb = Colorful.hslToRgb([h, s, l]);
+    const complementaryRgb = Colorful.hslToRgb([h, s, l, a]);
 
     return Colorful.rgbToHex(complementaryRgb);
   }
@@ -539,9 +542,9 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getInverseColor());
    */
   getInverseColor() {
-    let [r, g, b] = this.#rgba;
+    let [r, g, b, a = 1] = this.#rgba;
 
-    return Colorful.rgbToHex([255 - r, 255 - g, 255 - b]);
+    return Colorful.rgbToHex([255 - r, 255 - g, 255 - b, a]);
   }
 
   /**
@@ -553,7 +556,7 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getInverseColor());
    */
   getMonochromaticColors() {
-    let [h, s, v] = this.#hsva;
+    let [h, s, v, a = 1] = this.#hsva;
 
     // Use these 6 brightness values to generate monochromatic colors.
     let initVals = [20, 36, 48, 60, 75, 90];
@@ -584,9 +587,9 @@ class Colorful {
     // Use a combination of HSL and HSV values to generate the monochromatic colors. I did this because using just HSV seemed to produce darker shades and using just HSL seemed to produce lighter shades.
     for (let finVal of finVals) {
       if (finVal >= 50) {
-        variations.push(Colorful.hslToRgb([h, s, finVal]));
+        variations.push(Colorful.hslToRgb([h, s, finVal, a]));
       } else {
-        variations.push(Colorful.hsvToRgb([h, s, finVal]));
+        variations.push(Colorful.hsvToRgb([h, s, finVal, a]));
       }
     }
 
@@ -602,14 +605,14 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the split complementary colors.
    */
   getSplitComplementaryColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // Generate two hue values that are +/- 30deg from the complementary hue value (i.e, 180deg)
     let h1 = (h + 150) % 360;
     let h2 = (h + 210) % 360;
 
-    const splitRgb1 = Colorful.hslToRgb([h1, s, l]);
-    const splitRgb2 = Colorful.hslToRgb([h2, s, l]);
+    const splitRgb1 = Colorful.hslToRgb([h1, s, l, a]);
+    const splitRgb2 = Colorful.hslToRgb([h2, s, l, a]);
 
     return [Colorful.rgbToHex(splitRgb1), Colorful.rgbToHex(splitRgb2)];
   }
@@ -624,7 +627,7 @@ class Colorful {
    * console.log(myColor.getAnalogousColors());
    */
   getAnalogousColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // Generate two hue values that are +/- 30deg from the base color hue.
     // A -30 value is equal to -30 + 360 or 330 because hues are circular.
@@ -632,8 +635,8 @@ class Colorful {
     let h1 = (h + 30) % 360;
     let h2 = (h + 330) % 360;
 
-    const analogousRgb1 = Colorful.hslToRgb([h1, s, l]);
-    const analogousRgb2 = Colorful.hslToRgb([h2, s, l]);
+    const analogousRgb1 = Colorful.hslToRgb([h1, s, l, a]);
+    const analogousRgb2 = Colorful.hslToRgb([h2, s, l, a]);
 
     return [Colorful.rgbToHex(analogousRgb1), Colorful.rgbToHex(analogousRgb2)];
   }
@@ -648,15 +651,15 @@ class Colorful {
    * console.log(myColor.getTriadColors());
    */
   getTriadColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // Generate two hue values that are +/- 120deg from the base color hue.
     // Doing -120 is same as doing -120 + 360 or 240. Already explained above.
     let h1 = (h + 120) % 360;
     let h2 = (h + 240) % 360;
 
-    const triadRgb1 = Colorful.hslToRgb([h1, s, l]);
-    const triadRgb2 = Colorful.hslToRgb([h2, s, l]);
+    const triadRgb1 = Colorful.hslToRgb([h1, s, l, a]);
+    const triadRgb2 = Colorful.hslToRgb([h2, s, l, a]);
 
     return [Colorful.rgbToHex(triadRgb1), Colorful.rgbToHex(triadRgb2)];
   }
@@ -671,16 +674,16 @@ class Colorful {
    * console.log(myColor.getSquareColors());
    */
   getSquareColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // Generate three hue values that are 90deg apart from each other. The base color has a hue rotation of 0 which is basically 360. So, this makes all colors 90deg apart.
     let h1 = (h + 90) % 360;
     let h2 = (h + 180) % 360;
     let h3 = (h + 270) % 360;
 
-    const squareRgb1 = Colorful.hslToRgb([h1, s, l]);
-    const squareRgb2 = Colorful.hslToRgb([h2, s, l]);
-    const squareRgb3 = Colorful.hslToRgb([h3, s, l]);
+    const squareRgb1 = Colorful.hslToRgb([h1, s, l, a]);
+    const squareRgb2 = Colorful.hslToRgb([h2, s, l, a]);
+    const squareRgb3 = Colorful.hslToRgb([h3, s, l, a]);
 
     return [
       Colorful.rgbToHex(squareRgb1),
@@ -699,16 +702,16 @@ class Colorful {
    * console.log(myColor.getRectangleColors());
    */
   getRectangleColors() {
-    let [h, s, l] = this.#hsla;
+    let [h, s, l, a = 1] = this.#hsla;
 
     // For a rectangle the hue gap is 60deg/120deg alternatively.
     let h1 = (h + 60) % 360;
     let h2 = (h + 180) % 360;
     let h3 = (h + 240) % 360;
 
-    const rectRgb1 = Colorful.hslToRgb([h1, s, l]);
-    const rectRgb2 = Colorful.hslToRgb([h2, s, l]);
-    const rectRgb3 = Colorful.hslToRgb([h3, s, l]);
+    const rectRgb1 = Colorful.hslToRgb([h1, s, l, a]);
+    const rectRgb2 = Colorful.hslToRgb([h2, s, l, a]);
+    const rectRgb3 = Colorful.hslToRgb([h3, s, l, a]);
 
     return [
       Colorful.rgbToHex(rectRgb1),
@@ -1252,8 +1255,8 @@ function validateRgb(rgba) {
               throw new Error(`At least one RGB value is not in valid range!`);
           }
         } else {
-          if (!Number.isNaN(c)) {
-              throw new Error(`The alpha value is not a number!`);
+          if (isNaN(Number(c))) {
+              throw new Error(`The alpha value ${c} is not a number!`);
           }
 
           if (!inRange(c, 0, 1)) {
@@ -1276,7 +1279,7 @@ function validateHslHsv(hslv) {
     }
 
     if(hslv.length == 4 && !inRange(hslv[3], 0, 1)) {
-      throw new Error(`The opacity is out of range!`);
+      throw new Error(`The HSL opacity is out of range!`);
     }
     
 }

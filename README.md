@@ -258,7 +258,7 @@ console.log(brightColor.isLight());
 
 1. A better algorithm to generate monochromatic colors.
 2. Support for instantiating a `Colorful` object through other color formats besides HEX.
-3. Add support for Alpha channel.
+3. Add support for Alpha channel. (Done)
 
 If you have any other suggestions, I would be glad to hear them.
 
