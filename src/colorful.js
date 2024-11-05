@@ -5,10 +5,93 @@ class Colorful {
   #hsva;
 
   /**
-   * @param {string} hex - A hex value to instantiate the class.
+   * @param {string} value - A color value to instantiate the class.
    */
-  constructor(hex) {
-    this.hex = hex;
+  constructor(colorString) {
+
+    colorString = colorString.trim();
+
+    const hexRegex =
+      /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
+
+    const rgbRegex =
+      /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(0|1|0?\.\d+)\s*)?\)$/;
+
+    const hslHsvRegex =
+      /^(hsla?|hsva?)\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*(?:,\s*(0|1|0?\.\d+)\s*)?\)$/;
+
+    if (hexRegex.test(colorString)) {
+
+      this.#hexa = Colorful.sanitizeHex(colorString);
+
+      this.#rgba = Colorful.hexToRgb(this.#hexa);
+      this.#hsla = Colorful.rgbToHsl(this.#rgba);
+      this.#hsva = Colorful.hslToHsv(this.#hsla);
+
+    } else if (rgbRegex.test(colorString)) {
+
+      const match = colorString.match(rgbRegex);
+
+      if (match) {
+        const r = Number(match[1]);
+        const g = Number(match[2]);
+        const b = Number(match[3]);
+        const a = match[4] ? Number(match[4]) : 1;
+    
+        this.#rgba = [r, g, b, a];
+
+      } else {
+        throw new Error("Invalid color format");
+      }
+
+      this.#hexa = Colorful.rgbToHex(this.#rgba);
+      this.#hsla = Colorful.rgbToHsl(this.#rgba);
+
+    } else if (hslHsvRegex.test(colorString)) {
+      if (colorString.includes("hsl")) {
+
+        const match = colorString.match(hslHsvRegex);
+
+        if (match) {
+          const h = Number(match[2]);
+          const s = Number(match[3]);
+          const l = Number(match[4]);
+          const a = match[5] ? Number(match[5]) : 1;
+      
+          this.#hsla = [h, s, l, a];
+  
+        } else {
+          throw new Error("Invalid color format");
+        }
+      
+        this.#rgba = Colorful.hslToRgb(this.#hsla);
+        this.#hsva = Colorful.hslToHsv(this.#hsla);
+        this.#hexa = Colorful.rgbToHex(this.#rgba);
+      } else {
+
+        const match = colorString.match(hslHsvRegex);
+
+        if (match) {
+          const h = Number(match[2]);
+          const s = Number(match[3]);
+          const v = Number(match[4]);
+          const a = match[5] ? Number(match[5]) : 1;
+      
+          this.#hsva = [h, s, v, a];
+  
+        } else {
+          throw new Error("Invalid color format");
+        }
+
+        this.#rgba = Colorful.hsvToRgb(this.#hsva);
+        this.#hsla = Colorful.rgbToHsl(this.#rgba);
+        this.#hexa = Colorful.rgbToHex(this.#rgba);
+      }
+    } else {
+      throw new Error(
+        "You are either using an unsupported color format or providing an invalid value. Colorful.js supports "
+      );
+    }
   }
 
   /**
@@ -24,6 +107,8 @@ class Colorful {
    */
   static sanitizeHex(hex) {
 
+    hex = hex.trim();
+
     if (hex[0] !== "#") {
       throw new Error(`Add a '#' at the beginning of ${hex}!`);
     }
@@ -36,9 +121,14 @@ class Colorful {
 
     let sanitizedHex = hex.replace("#", "");
 
-    if (sanitizedHex.length !== 3 && sanitizedHex.length !== 4 && sanitizedHex.length !== 6 && sanitizedHex.length !== 8) {
+    if (
+      sanitizedHex.length !== 3 &&
+      sanitizedHex.length !== 4 &&
+      sanitizedHex.length !== 6 &&
+      sanitizedHex.length !== 8
+    ) {
       throw new Error(
-        `${sanitizedHex} doesn't have the right number of character!`
+        `${sanitizedHex} doesn't have the right number of characters!`
       );
     }
 
@@ -67,27 +157,17 @@ class Colorful {
     // At this point, hex will always have eight characters due to sanitization.
     hexa = Colorful.sanitizeHex(hexa).replace("#", "");
 
-    if(hexa.length == 6) {
-      hexa += 'FF';
+    if (hexa.length == 6) {
+      hexa += "FF";
     }
-
-    // HEX colors are in Base-16 so I use parseInt() to convert those values to a Base-10 integer.
-    // let colorInt = parseInt(hex, 16);
-
-    // The Red, Green, and Blue component use 2 HEX digits each to specify their value. This translates to 8 bits each in binary.
-
-    // Do a right shift by 16 bits and then the bitwise AND operation with 255 to isolate the red component.
-    // let r = (colorInt >> 16) & 255;
-    // let g = (colorInt >> 8) & 255;
-    // let b = colorInt & 255;
 
     let r = parseInt(hexa.slice(0, 2), 16);
     let g = parseInt(hexa.slice(2, 4), 16);
     let b = parseInt(hexa.slice(4, 6), 16);
-    let a = parseInt(hexa.slice(6, 8), 16) / 255;
+    let a = parseFloat((parseInt(hexa.slice(6, 8), 16) / 255).toFixed(4));
 
     // No need to output alpha if it is 1
-    if(a == 1) {
+    if (a == 1) {
       return [r, g, b];
     } else {
       return [r, g, b, a];
@@ -100,7 +180,6 @@ class Colorful {
    * @returns {array} - The first, second, and third element are the hue, saturation, and lightness of the color.
    */
   static rgbToHsl(rgba) {
-
     let [r, g, b, a = 1] = rgba;
 
     validateRgb(rgba);
@@ -136,7 +215,7 @@ class Colorful {
       h /= 6;
     }
 
-    if(a !== 1) {
+    if (a !== 1) {
       return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100), a];
     } else {
       return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
@@ -149,7 +228,6 @@ class Colorful {
    * @returns {array} - The first, second, and third element are the hue, saturation, and value of the color.
    */
   static hslToHsv(hsla) {
-
     validateHslHsv(hsla);
 
     let [h, s, l, a = 1] = hsla;
@@ -160,7 +238,7 @@ class Colorful {
     let v = l + s * Math.min(l, 1 - l);
     let sv = v === 0 ? 0 : 2 * (1 - l / v);
 
-    if(a !== 1) {
+    if (a !== 1) {
       return [h, Math.round(sv * 100), Math.round(v * 100), a];
     } else {
       return [h, Math.round(sv * 100), Math.round(v * 100)];
@@ -173,7 +251,6 @@ class Colorful {
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
   static hslToRgb(hsla) {
-    
     validateHslHsv(hsla);
 
     let [h, s, l, a = 1] = hsla;
@@ -207,7 +284,7 @@ class Colorful {
     }
 
     // Multiplying by 255 scales the values from 0-1 to 0-255.
-    if(a !== 1) {
+    if (a !== 1) {
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255), a];
     } else {
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
@@ -220,7 +297,6 @@ class Colorful {
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
   static hsvToRgb(hsva) {
-
     validateHslHsv(hsva);
 
     let [h, s, v, a] = hsva;
@@ -249,7 +325,7 @@ class Colorful {
 
     let [r, g, b] = rgbPrime.map((value) => Math.round((value + m) * 255));
 
-    if(a !== 1) {
+    if (a !== 1) {
       return [r, g, b, a];
     } else {
       return [r, g, b];
@@ -262,15 +338,16 @@ class Colorful {
    * @returns {string} - The long form HEX code for the color.
    */
   static rgbToHex(rgba) {
-
     validateRgb(rgba);
 
     let [r, g, b, a = 1] = rgba;
 
-    if(a != 1) {
-      a = Math.round(a * 255).toString(16).padStart(2, "0");
+    if (a != 1) {
+      a = Math.round(a * 255)
+        .toString(16)
+        .padStart(2, "0");
     } else {
-      a = '';
+      a = "";
     }
 
     return (
@@ -279,7 +356,8 @@ class Colorful {
         .map((x) => {
           return x.toString(16).padStart(2, "0");
         })
-        .join("") + a
+        .join("") +
+      a
     );
   }
 
@@ -289,12 +367,11 @@ class Colorful {
    * @returns {string} - The long form HEX code for the color.
    */
   static rgbStringToHex(rgbString) {
-
     const regex = /^rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)$/;
     let rgb = regex.exec(rgbString);
 
     if (!rgb) {
-        throw new Error('Invalid RGB string format');
+      throw new Error("Invalid RGB string format");
     }
 
     rgb = rgb.slice(1).map((v) => parseInt(v, 10));
@@ -303,7 +380,6 @@ class Colorful {
 
     return Colorful.rgbToHex(rgb);
   }
-
 
   /**
    * This method will give you the HEX string that represents the new brightness adjusted color.
@@ -317,7 +393,10 @@ class Colorful {
    * console.log(new Colorful('#ff9900').adjustBrightness(30));
    */
   adjustBrightness(percent) {
-    if (isNaN(Number(percent))) {
+
+    percent = percent.toString().trim();
+
+    if (isNaN(Number(percent)) || percent == '') {
       throw new Error(`Please pass a numerical value!`);
     }
 
@@ -332,6 +411,7 @@ class Colorful {
     l = Math.max(0, Math.min(l, 100));
 
     let newColor = Colorful.hslToRgb([h, s, l, a]);
+
     return Colorful.rgbToHex(newColor);
   }
 
@@ -398,7 +478,7 @@ class Colorful {
    * @param {string} color - The HEX value of the color.
    * @returns {number} The return value represents the luminance of the color.
    * @example
-   * 
+   *
    * // Outputs: 0.28927047102101044
    * console.log(Colorful.getLuminance('#B879DA'));
    */
@@ -425,15 +505,14 @@ class Colorful {
    * This method generates a random HEX color that is AAA accessible when paired with white.
    * @example
    * // Outputs: #275832
-   * console.log(Colorful.getWhiteAccessibleColor()); 
+   * console.log(Colorful.getWhiteAccessibleColor());
    * @returns {string} - The HEX representation of the color with which you want to calculate the contrast.
    */
   static getWhiteAccessibleColor() {
-
     let color = Colorful.getRandomHexColor();
 
-    while(this.getLuminance(color) >= 0.18) {
-        color = Colorful.getRandomHexColor();
+    while (this.getLuminance(color) >= 0.18) {
+      color = Colorful.getRandomHexColor();
     }
 
     return color;
@@ -447,11 +526,10 @@ class Colorful {
    * @returns {string} - The HEX representation of the color with which you want to calculate the contrast.
    */
   static getBlackAccessibleColor() {
-
     let color = Colorful.getRandomHexColor();
 
-    while(this.getLuminance(color) <= 0.4) {
-        color = Colorful.getRandomHexColor();
+    while (this.getLuminance(color) <= 0.4) {
+      color = Colorful.getRandomHexColor();
     }
 
     return color;
@@ -481,7 +559,6 @@ class Colorful {
    * console.log(new Colorful('#6688aa').getContrast('#000'));
    */
   getContrast(hex) {
-
     let lumOne = Colorful.getLuminance(this.#hexa);
 
     // getLuminance() sanitizes HEX so no need to sanitize here.
@@ -550,47 +627,49 @@ class Colorful {
   /**
    * This method will give you the HEX representation for five new colors that have the same hue as the color representing the instantiated Colorful object.
    *
-   * @returns {number} - The HEX representation of the inverse color.
+   * @returns {number} - The HEX representation of the monochromatic variations.
    * @example
    * // Outputs:  #997755
    * console.log(new Colorful('#6688aa').getInverseColor());
    */
   getMonochromaticColors() {
     let [h, s, v, a = 1] = this.#hsva;
+    const numVariations = 6;
+    const variationStep = 15;
 
-    // Use these 6 brightness values to generate monochromatic colors.
-    let initVals = [20, 36, 48, 60, 75, 90];
+    let initVals = Array.from({ length: numVariations }, (_, i) =>
+      Math.min(
+        100,
+        Math.max(0, v + (i - Math.floor(numVariations / 2)) * variationStep)
+      )
+    );
 
-    // Determine the brightness value closest to the original color.
-    let closestIdx = 0;
-    let closestDiff = Math.abs(initVals[0] - v);
+    const sortedVals = [...initVals].sort((a, b) => Math.abs(a - v) - Math.abs(b - v));
+    const closestVal = sortedVals[0];
+    const farthestVal = sortedVals[sortedVals.length - 1];
 
-    for (let i = 1; i < initVals.length; i++) {
-      let diff = Math.abs(initVals[i] - v);
-      if (diff < closestDiff) {
-        closestDiff = diff;
-        closestIdx = i;
-      }
-    }
-
-    // Create a new array that doesn't have the closest brightness value.
-    let finVals = [];
-
-    for (let i = 0; i < initVals.length; i++) {
-      if (i != closestIdx) {
-        finVals.push(initVals[i]);
-      }
+    if (Math.abs(closestVal - v) < 4) {
+      initVals = initVals.filter(val => val !== closestVal);
+    } else {
+        initVals = initVals.filter(val => val !== farthestVal);
     }
 
     let variations = [];
+    const weightHsl = 0.6;
+    const weightHsv = 0.4;
 
-    // Use a combination of HSL and HSV values to generate the monochromatic colors. I did this because using just HSV seemed to produce darker shades and using just HSL seemed to produce lighter shades.
-    for (let finVal of finVals) {
-      if (finVal >= 50) {
-        variations.push(Colorful.hslToRgb([h, s, finVal, a]));
-      } else {
-        variations.push(Colorful.hsvToRgb([h, s, finVal, a]));
-      }
+    for (let finVal of initVals) {
+      let hslVariation = Colorful.hslToRgb([h, s, finVal, a]);
+      let hsvVariation = Colorful.hsvToRgb([h, s, finVal, a]);
+
+      let blendedVariation = [
+        Math.round(weightHsl * hslVariation[0] + weightHsv * hsvVariation[0]),
+        Math.round(weightHsl * hslVariation[1] + weightHsv * hsvVariation[1]),
+        Math.round(weightHsl * hslVariation[2] + weightHsv * hsvVariation[2]),
+        a,
+      ];
+
+      variations.push(blendedVariation);
     }
 
     let monochromaticColors = variations.map((variation) => {
@@ -622,7 +701,7 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the analogous colors.
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#e69df6", "#9dadf6" ]
    * console.log(myColor.getAnalogousColors());
    */
@@ -646,7 +725,7 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the triad colors.
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f6b99d", "#9df6b9" ]
    * console.log(myColor.getTriadColors());
    */
@@ -669,7 +748,7 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the square colors.
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f69dad", "#daf69d", "#9df6e6" ]
    * console.log(myColor.getSquareColors());
    */
@@ -697,7 +776,7 @@ class Colorful {
    * @returns {array} - Each array element contains the HEX representation for one of the rectangle colors.
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f69dda", "#daf69d", "#9df6b9" ]
    * console.log(myColor.getRectangleColors());
    */
@@ -761,7 +840,7 @@ class Colorful {
 
   /**
    * This methods gives you the HEX representation of a random color that was generated based on your preferences. The color will be completely random if you don't have any preferences.
-   * 
+   *
    * @param {string|object} [pref] - This argument specifies your preferences for the generated color.
    * @returns {string} The HEX representation of the random color.
    *
@@ -807,12 +886,12 @@ class Colorful {
       },
       saturated: {
         saturationRange: [90, 100],
-        lightnessRange: [50, 50]
+        lightnessRange: [50, 50],
       },
       dull: {
         saturationRange: [10, 30],
-        lightnessRange: [50, 50]
-      }
+        lightnessRange: [50, 50],
+      },
     };
 
     let {
@@ -878,7 +957,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ 187, 159, 246 ]
    * console.log(myColor.rgb);
    */
@@ -891,7 +970,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: rgb(187, 159, 246)
    * console.log(myColor.rgbString);
    */
@@ -904,7 +983,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ 259, 83, 79 ]
    * console.log(myColor.hsl);
    */
@@ -917,7 +996,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: hsl(259deg, 83%, 79%)
    * console.log(myColor.hslString);
    */
@@ -934,7 +1013,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ 259, 36, 96 ]
    * console.log(myColor.hsv);
    */
@@ -947,7 +1026,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: hsv(259deg, 36%, 96%)
    * console.log(myColor.hsvString);
    */
@@ -963,7 +1042,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 187
    * console.log(myColor.red);
    */
@@ -976,7 +1055,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 159
    * console.log(myColor.green);
    */
@@ -989,7 +1068,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 246
    * console.log(myColor.blue);
    */
@@ -1002,7 +1081,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 259
    * console.log(myColor.hue);
    */
@@ -1015,7 +1094,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 83
    * console.log(myColor.saturation);
    */
@@ -1028,7 +1107,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 79
    * console.log(myColor.lightness);
    */
@@ -1042,7 +1121,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: 0.4201489058782789
    * console.log(myColor.luminance);
    */
@@ -1055,7 +1134,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f6e69d", "#adf69d" ]
    * console.log(myColor.analogous);
    */
@@ -1068,7 +1147,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: #daf69d
    * console.log(myColor.analogous);
    */
@@ -1081,7 +1160,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: #446009
    * console.log(myColor.analogous);
    */
@@ -1116,10 +1195,10 @@ class Colorful {
    * @readonly
    * @example
    * // Outputs: #d05643
-   * console.log(Colorful.reddish); 
+   * console.log(Colorful.reddish);
    */
   static get reddish() {
-    return Colorful.getRandomPreferredColor('reddish');
+    return Colorful.getRandomPreferredColor("reddish");
   }
 
   /**
@@ -1127,10 +1206,10 @@ class Colorful {
    * @readonly
    * @example
    * // Outputs: #49a1f8
-   * console.log(Colorful.bluish); 
+   * console.log(Colorful.bluish);
    */
   static get bluish() {
-    return Colorful.getRandomPreferredColor('bluish');
+    return Colorful.getRandomPreferredColor("bluish");
   }
 
   /**
@@ -1141,7 +1220,7 @@ class Colorful {
    * console.log(Colorful.greenish);
    */
   static get greenish() {
-    return Colorful.getRandomPreferredColor('greenish');
+    return Colorful.getRandomPreferredColor("greenish");
   }
 
   /**
@@ -1149,7 +1228,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#e69df6", "#9dadf6" ]
    * console.log(myColor.analogous);
    */
@@ -1162,7 +1241,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#262133", "#453b5c", "#5c4e7a", "#8c74be", "#b7a8d6" ]
    * console.log(myColor.analogous);
    */
@@ -1175,7 +1254,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f6b99d", "#9df6b9" ]
    * console.log(myColor.triad);
    */
@@ -1188,7 +1267,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f69dad", "#daf69d", "#9df6e6" ]
    * console.log(myColor.square);
    */
@@ -1201,7 +1280,7 @@ class Colorful {
    * @readonly
    * @example
    * let myColor = new Colorful('#BB9FF6');
-   * 
+   *
    * // Outputs: [ "#f69dda", "#daf69d", "#9df6b9" ]
    * console.log(myColor.square);
    */
@@ -1223,7 +1302,7 @@ function inRange(value, min, max) {
 
 /**
  * Convert a given array into a string with a valid color value in desired format.
- * @param {string} type - Specify the color type like `rgb`, `hsl` 
+ * @param {string} type - Specify the color type like `rgb`, `hsl`
  * @param {array} array - Different array elements contain respective values.
  * @returns {string} The color representation in desired format as a string.
  */
@@ -1238,48 +1317,71 @@ function toString(type, array) {
 }
 
 function validateRgb(rgba) {
-    if (rgba.length != 3 && rgba.length != 4) {
-        throw new Error(`Input array needs 3 or 4 elements!`);
+  if (rgba.length != 3 && rgba.length != 4) {
+    throw new Error(`Input array needs 3 or 4 elements!`);
+  }
+
+  let idx = 0;
+
+  for (let c of rgba) {
+    if (idx < 3) {
+      if (!Number.isInteger(c)) {
+        throw new Error(`At least one RGB value is not a number!`);
+      }
+
+      if (!inRange(c, 0, 255)) {
+        throw new Error(`At least one RGB value is not in valid range!`);
+      }
+    } else {
+      if (isNaN(Number(c))) {
+        throw new Error(`The alpha value ${c} is not a number!`);
+      }
+
+      if (!inRange(c, 0, 1)) {
+        throw new Error(`The alpha value is out of range!`);
+      }
     }
 
-    let idx = 0;
-
-    for (let c of rgba) {
-
-        if(idx < 3) {
-          if (!Number.isInteger(c)) {
-              throw new Error(`At least one RGB value is not a number!`);
-          }
-
-          if (!inRange(c, 0, 255)) {
-              throw new Error(`At least one RGB value is not in valid range!`);
-          }
-        } else {
-          if (isNaN(Number(c))) {
-              throw new Error(`The alpha value ${c} is not a number!`);
-          }
-
-          if (!inRange(c, 0, 1)) {
-              throw new Error(`The alpha value is out of range!`);
-          }
-        }
-
-        idx += 1;
-    }
+    idx += 1;
+  }
 }
 
 function validateHslHsv(hslv) {
+  if (hslv.length != 3 && hslv.length != 4) {
+    throw new Error(`Input array needs 3 or 4 elements!`);
+  }
 
-    if (hslv.length != 3 && hslv.length != 4) {
-        throw new Error(`Input array needs 3 or 4 elements!`);
-    }
+  // Validate hue
+  if (!inRange(hslv[0], 0, 359)) {
+    throw new Error(`Hue is out of range!`);
+  }
 
-    if (!inRange(hslv[1], 0, 100) || !inRange(hslv[2], 0, 100)) {
-        throw new Error(`One of the values is out of range!`);
-    }
+  // Validate saturation and lightness
+  if (!inRange(hslv[1], 0, 100)) {
+    throw new Error(`Saturation is out of range!`);
+  }
+  
+  if (!inRange(hslv[2], 0, 100)) {
+    throw new Error(`Lightness is out of range!`);
+  }
 
-    if(hslv.length == 4 && !inRange(hslv[3], 0, 1)) {
-      throw new Error(`The HSL opacity is out of range!`);
-    }
-    
+  if (hslv.length == 4 && !inRange(hslv[3], 0, 1)) {
+    throw new Error(`The HSL opacity is out of range!`);
+  }
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+  // Export for CommonJS (Node.js)
+  module.exports = Colorful;
+}
+
+if (typeof window !== 'undefined') {
+  // Export for ES Modules (browser)
+  window.Colorful = Colorful;
+}
+
+if (typeof exports !== 'undefined') {
+  exports.Colorful = Colorful;
+}
+
+export { Colorful }

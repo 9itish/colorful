@@ -1,0 +1,20 @@
+{
+  "name": "colorful",
+  "version": "1.0.0",
+  "description": "I was looking for an easy-to-use color manipulation library for one of my projects. The library had to have these five features:",
+  "main": "src/colorful.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2"
+  }
+}
