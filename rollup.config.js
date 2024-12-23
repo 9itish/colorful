@@ -24,16 +24,10 @@ export default defineConfig({
       format: 'iife', // IIFE format (browser-specific)
       name: 'Colorful', // Global name for the IIFE
       plugins: [terser()], // Minification
-      banner: `
-        if (typeof window !== "undefined") {
-          window.Colorful = Colorful;
-        }
-      `, // Add window exposure only in the IIFE build
     },
   ],
   plugins: [
     nodeResolve(),
     commonjs(),
-  ],
-  external: ['Colorful'], // To avoid conflicts in global space, especially in IIFE
+  ]
 });

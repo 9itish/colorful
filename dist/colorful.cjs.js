@@ -1356,4 +1356,4 @@ function validateHslHsv(hslv) {
   }
 }
 
-exports.Colorful = Colorful;
+module.exports = Colorful;

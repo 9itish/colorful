@@ -1370,5 +1370,5 @@ function validateHslHsv(hslv) {
   }
 }
 
-export { Colorful };
+export default Colorful;
 
