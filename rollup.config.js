@@ -16,18 +16,24 @@ export default defineConfig({
     },
     {
       file: 'dist/colorful.umd.js',
-      format: 'umd', // UMD format for browser and Node.js
-      name: 'Colorful', // Global variable name for browsers
+      format: 'umd',
+      name: 'Colorful', // Expose Colorful globally in UMD
     },
     {
       file: 'dist/colorful.min.js',
-      format: 'iife', // Browser-specific format
-      name: 'Colorful',
+      format: 'iife', // IIFE format (browser-specific)
+      name: 'Colorful', // Global name for the IIFE
       plugins: [terser()], // Minification
+      banner: `
+        if (typeof window !== "undefined") {
+          window.Colorful = Colorful;
+        }
+      `, // Add window exposure only in the IIFE build
     },
   ],
   plugins: [
     nodeResolve(),
     commonjs(),
   ],
+  external: ['Colorful'], // To avoid conflicts in global space, especially in IIFE
 });
