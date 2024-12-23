@@ -1300,22 +1300,6 @@ function inRange(value, min, max) {
   return value >= min && value <= max;
 }
 
-/**
- * Convert a given array into a string with a valid color value in desired format.
- * @param {string} type - Specify the color type like `rgb`, `hsl`
- * @param {array} array - Different array elements contain respective values.
- * @returns {string} The color representation in desired format as a string.
- */
-function toString(type, array) {
-  if (type == "rgb") {
-    return `${colorType}(` + array.join(", ") + ")";
-  }
-
-  if (type == "hsl") {
-    return `${colorType}(${array[0]}deg, ${array[1]}%, ${array[2]}%)`;
-  }
-}
-
 function validateRgb(rgba) {
   if (rgba.length != 3 && rgba.length != 4) {
     throw new Error(`Input array needs 3 or 4 elements!`);
@@ -1371,4 +1355,3 @@ function validateHslHsv(hslv) {
 }
 
 export { Colorful };
-

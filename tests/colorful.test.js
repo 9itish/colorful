@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { Colorful } from '../src/colorful.js';
+import { Colorful } from '../dist/colorful.esm.js';
 
 describe('Colorful', () => {
 
