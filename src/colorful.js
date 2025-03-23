@@ -228,6 +228,8 @@ class Colorful {
    * @returns {array} - The first, second, and third element are the hue, saturation, and value of the color.
    */
   static hslToHsv(hsla) {
+
+    hsla[0] = hsla[0] % 360;
     validateHslHsv(hsla);
 
     let [h, s, l, a = 1] = hsla;
@@ -251,6 +253,9 @@ class Colorful {
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
   static hslToRgb(hsla) {
+
+    hsla[0] = hsla[0] % 360;
+
     validateHslHsv(hsla);
 
     let [h, s, l, a = 1] = hsla;
@@ -297,6 +302,8 @@ class Colorful {
    * @returns {array} - The first, second, and third element in the array are the red, green, and blue components of the color.
    */
   static hsvToRgb(hsva) {
+
+    hsva[0] = hsva[0] % 360;
     validateHslHsv(hsva);
 
     let [h, s, v, a] = hsva;

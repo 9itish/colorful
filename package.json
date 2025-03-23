@@ -11,9 +11,13 @@
     "build": "rollup --config"
   },
   "type": "module",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "color manipulation",
+    "javascript"
+  ],
+  "author": "Nitish Kumar",
+  "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",

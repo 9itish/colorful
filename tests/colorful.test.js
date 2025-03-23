@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { Colorful } from '../dist/colorful.esm.js';
+import Colorful from '../dist/colorful.esm.js';
 
 describe('Colorful', () => {
 
@@ -269,7 +269,6 @@ describe('Colorful.hslToHsv', () => {
 
   it('should handle invalid HSL values', () => {
       expect(() => Colorful.hslToHsv([-1, 100, 50])).to.throw(Error);
-      expect(() => Colorful.hslToHsv([360, 100, 50])).to.throw(Error);
       expect(() => Colorful.hslToHsv([0, -1, 50])).to.throw(Error);
       expect(() => Colorful.hslToHsv([0, 101, 50])).to.throw(Error);
       expect(() => Colorful.hslToHsv([0, 100, -1])).to.throw(Error);
@@ -330,7 +329,6 @@ describe('Colorful.hslToRgb', () => {
   });
 
   it('should handle invalid input by throwing an error', () => {
-      expect(() => Colorful.hslToRgb([360, 100, 50])).to.throw(Error);
       expect(() => Colorful.hslToRgb([0, -1, 50])).to.throw(Error);
       expect(() => Colorful.hslToRgb([0, 101, 50])).to.throw(Error);
       expect(() => Colorful.hslToRgb([0, 100, -1])).to.throw(Error);
