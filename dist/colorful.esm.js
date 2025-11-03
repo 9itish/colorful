@@ -255,6 +255,7 @@ class Colorful {
   static hslToRgb(hsla) {
 
     hsla[0] = hsla[0] % 360;
+
     validateHslHsv(hsla);
 
     let [h, s, l, a = 1] = hsla;
