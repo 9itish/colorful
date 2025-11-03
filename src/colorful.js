@@ -579,6 +579,34 @@ class Colorful {
   }
 
   /**
+   * This method will give you the perceptual contrast between this color and the color represented by the HEX string you provide.
+   * Uses a simplified version of the Advanced Perceptual Contrast Algorithm (APCA),
+   * which better models how humans perceive lightness differences compared to the standard ratio method.
+   *
+   * @param {string} hex - The HEX representation of the color with which you want to calculate the perceptual contrast.
+   * @returns {number} - The perceptual contrast value between the two colors.
+   * Positive values indicate dark text on light backgrounds; negative values indicate light text on dark backgrounds.
+   * @example
+   * // Outputs: -63.45
+   * console.log(new Colorful('#FFFFFF').getPerceptualContrast('#68bd4a'));
+   */
+  getPerceptualContrast(hex) {
+    const [r1, g1, b1] = Colorful.hexToRgb(this.#hexa);
+    const [r2, g2, b2] = Colorful.hexToRgb(hex);
+
+    const textY = Colorful.sRGBtoY(r1, g1, b1);
+    const bgY = Colorful.sRGBtoY(r2, g2, b2);
+
+    const normBG = Math.pow(bgY, 0.56);
+    const normText = Math.pow(textY, 0.57);
+
+    let contrast = (normBG - normText) * 1.14;
+
+    return (contrast * 100).toFixed(2);
+  }
+
+
+  /**
    * This method will give you the HEX representation for a new color that has at least the provided amount of contrast with the color in the instantiated Colorful object.
    *
    * @param {string} hex - The HEX representation of the color with which you want to calculate the contrast.
