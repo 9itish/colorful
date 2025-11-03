@@ -594,8 +594,8 @@ class Colorful {
     const [r1, g1, b1] = Colorful.hexToRgb(this.#hexa);
     const [r2, g2, b2] = Colorful.hexToRgb(hex);
 
-    const textY = Colorful.sRGBtoY(r1, g1, b1);
-    const bgY = Colorful.sRGBtoY(r2, g2, b2);
+    const textY = Colorful.getLuminance(r1, g1, b1);
+    const bgY = Colorful.getLuminance(r2, g2, b2);
 
     const normBG = Math.pow(bgY, 0.56);
     const normText = Math.pow(textY, 0.57);
